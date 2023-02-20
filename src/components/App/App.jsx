@@ -7,7 +7,7 @@ import ImageGallery from 'components/ImageGallery/ImageGallery';
 import Loader from 'components/Loader/Loader';
 import Button from 'components/Button/Button';
 
-import { requestImages } from 'components/services/api';
+import { requestImages } from '../../services/api';
 import css from './App.module.css';
 
 export class App extends Component {
@@ -65,7 +65,7 @@ export class App extends Component {
   };
 
   setQuery = q => {
-    if (!q.trim || q === this.state.query) {
+    if (q === this.state.query) {
       toast.error('Please, change your request');
       return;
     }
@@ -73,7 +73,7 @@ export class App extends Component {
       q,
       page: 1,
       images: [],
-      totalHits: 0,
+      totalImages: 0,
     });
   };
 
@@ -84,7 +84,7 @@ export class App extends Component {
       <div className={css.app}>
         <SearchBar onSubmit={this.setQuery} />
         {images.length !== 0 && <ImageGallery images={images} />}
-        {!isLoading && totalImages !== images.length && (
+        {!isLoading && images.length < totalImages && (
           <Button loadMore={this.loadMore} />
         )}
         {isLoading && <Loader />}

@@ -22,8 +22,8 @@ export const requestImages = async (value, page) => {
       webformatURL,
       largeImageURL,
     }))
-
-    return { images, totalHits };
+    const totalImages = totalHits;
+    return { images, totalImages };
 
   } catch (error) {
     throw new Error(error);
